@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-five - 商城</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Framer Motion -->
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .bg-blur {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 text-white min-h-screen">
+    <!-- 頂部導航欄 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-blur border-b border-white/10">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">X-five</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#games" class="hover:text-purple-400 transition-colors">遊戲</a>
+                    <a href="index.html#live" class="hover:text-purple-400 transition-colors">直播</a>
+                    <a href="index.html#videos" class="hover:text-purple-400 transition-colors">短視頻</a>
+                    <a href="shop.html" class="text-purple-400">商城</a>
+                    <a href="login.html" class="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full hover:opacity-90 transition-opacity">登入</a>
+                </div>
+                <div class="flex items-center space-x-6 md:hidden">
+                    <button class="text-2xl" id="mobileMenuButton">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 手機端選單 -->
+    <div id="mobileMenu" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="fixed inset-y-0 right-0 w-64 bg-gray-900 transform transition-transform duration-300 translate-x-full">
+            <div class="flex justify-between items-center p-4 border-b border-gray-800">
+                <span class="text-xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">X-five</span>
+                <button class="text-2xl" id="closeMenuButton">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <nav class="space-y-4">
+                    <a href="index.html#games" class="block hover:text-purple-400 transition-colors">遊戲</a>
+                    <a href="index.html#live" class="block hover:text-purple-400 transition-colors">直播</a>
+                    <a href="index.html#videos" class="block hover:text-purple-400 transition-colors">短視頻</a>
+                    <a href="shop.html" class="block text-purple-400">商城</a>
+                    <a href="login.html" class="block bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full hover:opacity-90 transition-opacity text-center">登入</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 主要內容 -->
+    <main class="container mx-auto px-4 pt-24 pb-12">
+        <!-- 分類導航 -->
+        <div class="flex items-center space-x-6 mb-8 overflow-x-auto scrollbar-hide pb-4">
+            <button class="px-6 py-2 bg-purple-500 rounded-full font-medium whitespace-nowrap" data-category="all">全部商品</button>
+            <button class="px-6 py-2 bg-gray-800/50 rounded-full font-medium whitespace-nowrap hover:bg-purple-500/20 hover:text-purple-500" data-category="adult-toys">情趣用品</button>
+            <button class="px-6 py-2 bg-gray-800/50 rounded-full font-medium whitespace-nowrap hover:bg-purple-500/20 hover:text-purple-500" data-category="health">保健品</button>
+            <button class="px-6 py-2 bg-gray-800/50 rounded-full font-medium whitespace-nowrap hover:bg-purple-500/20 hover:text-purple-500" data-category="fashion">服裝配飾</button>
+            <button class="px-6 py-2 bg-gray-800/50 rounded-full font-medium whitespace-nowrap hover:bg-purple-500/20 hover:text-purple-500" data-category="lingerie">情趣內衣</button>
+            <button class="px-6 py-2 bg-gray-800/50 rounded-full font-medium whitespace-nowrap hover:bg-purple-500/20 hover:text-purple-500" data-category="care">保養護理</button>
+        </div>
+        
+        <!-- 商品列表 -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="productGrid">
+            <!-- 情趣用品 -->
+            <div class="glass-effect rounded-xl overflow-hidden group" data-category="adult-toys">
+                <div class="relative">
+                    <img src="https://shoplineimg.com/5e01db072bf93f001e19c6ec/68591be9f106be0010990b9e/800x.webp?source_format=jpg" alt="商品圖片" class="w-full aspect-square object-cover">
+                    <button class="absolute top-3 right-3 w-8 h-8 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-purple-500/20 hover:text-purple-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="absolute top-3 left-3 px-2 py-1 bg-red-500 rounded text-sm">熱銷</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold mb-2 line-clamp-2">隱藏式自慰抱枕</h3>
+                    <div class="flex items-center text-sm text-gray-400 mb-3">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <span>4.9</span>
+                        <span class="mx-2">|</span>
+                        <span>已售 2.5k</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-purple-500">
+                            <span class="text-sm">$</span>
+                            <span class="text-xl font-bold">39.99</span>
+                        </div>
+                        <a href="cart.html" class="p-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 折扣商品 -->
+            <div class="glass-effect rounded-xl overflow-hidden group">
+                <div class="relative">
+                    <img src="https://shoplineimg.com/5e01db072bf93f001e19c6ec/62e47da54a91a1001ade96bf/800x.webp?source_format=jpg" alt="商品圖片" class="w-full aspect-square object-cover">
+                    <button class="absolute top-3 right-3 w-8 h-8 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-purple-500/20 hover:text-purple-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="absolute top-3 left-3 px-2 py-1 bg-green-500 rounded text-sm">85折</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold mb-2 line-clamp-2">矽膠實體真人娃娃</h3>
+                    <div class="flex items-center text-sm text-gray-400 mb-3">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <span>4.7</span>
+                        <span class="mx-2">|</span>
+                        <span>已售 980</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-purple-500">
+                                <span class="text-sm">$</span>
+                                <span class="text-xl font-bold">25.99</span>
+                            </div>
+                            <div class="text-sm text-gray-400 line-through">$29.99</div>
+                        </div>
+                        <a href="cart.html" class="p-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 限量商品 -->
+            <div class="glass-effect rounded-xl overflow-hidden group">
+                <div class="relative">
+                    <img src="https://shoplineimg.com/5e01db072bf93f001e19c6ec/6425359d03e87a001ad4642b/800x.webp?source_format=jpg" alt="商品圖片" class="w-full aspect-square object-cover">
+                    <button class="absolute top-3 right-3 w-8 h-8 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-purple-500/20 hover:text-purple-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="absolute top-3 left-3 px-2 py-1 bg-yellow-500 rounded text-sm">限量</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold mb-2 line-clamp-2">美膣的香味 明里紬｜AV女優 飛機杯 自慰器</h3>
+                    <div class="flex items-center text-sm text-gray-400 mb-3">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <span>4.9</span>
+                        <span class="mx-2">|</span>
+                        <span>已售 568</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-purple-500">
+                            <span class="text-sm">$</span>
+                            <span class="text-xl font-bold">49.99</span>
+                        </div>
+                        <a href="cart.html" class="p-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 保健品 -->
+            <div class="glass-effect rounded-xl overflow-hidden group" data-category="health">
+                <div class="relative">
+                    <img src="https://shoplineimg.com/650a58aa46038500546ef686/67b6c8084db7d0000ddb2466/800x.webp?source_format=jpg" alt="商品圖片" class="w-full aspect-square object-cover">
+                    <button class="absolute top-3 right-3 w-8 h-8 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-purple-500/20 hover:text-purple-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="absolute top-3 left-3 px-2 py-1 bg-green-500 rounded text-sm">新品</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold mb-2 line-clamp-2">瑪卡精力膠囊</h3>
+                    <div class="flex items-center text-sm text-gray-400 mb-3">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <span>4.7</span>
+                        <span class="mx-2">|</span>
+                        <span>已售 980</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-purple-500">
+                            <span class="text-sm">$</span>
+                            <span class="text-xl font-bold">49.99</span>
+                        </div>
+                        <a href="cart.html" class="p-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 服裝配飾 -->
+            <div class="glass-effect rounded-xl overflow-hidden group" data-category="fashion">
+                <div class="relative">
+                    <img src="https://shoplineimg.com/5e01db072bf93f001e19c6ec/60f64af6813d11002cee3036/800x.webp?source_format=jpg" alt="商品圖片" class="w-full aspect-square object-cover">
+                    <button class="absolute top-3 right-3 w-8 h-8 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-purple-500/20 hover:text-purple-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold mb-2 line-clamp-2">情趣套裝組</h3>
+                    <div class="flex items-center text-sm text-gray-400 mb-3">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <span>4.6</span>
+                        <span class="mx-2">|</span>
+                        <span>已售 756</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-purple-500">
+                            <span class="text-sm">$</span>
+                            <span class="text-xl font-bold">19.99</span>
+                        </div>
+                        <a href="cart.html" class="p-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 情趣內衣 -->
+            <div class="glass-effect rounded-xl overflow-hidden group" data-category="lingerie">
+                <div class="relative">
+                    <img src="https://shoplineimg.com/5e01db072bf93f001e19c6ec/66223ef31ce0e60020fd9db4/800x.webp?source_format=jpg" alt="商品圖片" class="w-full aspect-square object-cover">
+                    <button class="absolute top-3 right-3 w-8 h-8 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-purple-500/20 hover:text-purple-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="absolute top-3 left-3 px-2 py-1 bg-purple-500 rounded text-sm">限量</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold mb-2 line-clamp-2">寬版繫帶蝴蝶結 情趣睡衣</h3>
+                    <div class="flex items-center text-sm text-gray-400 mb-3">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <span>4.9</span>
+                        <span class="mx-2">|</span>
+                        <span>已售 1.2k</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-purple-500">
+                            <span class="text-sm">$</span>
+                            <span class="text-xl font-bold">34.99</span>
+                        </div>
+                        <a href="cart.html" class="p-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 保養護理 -->
+            <div class="glass-effect rounded-xl overflow-hidden group" data-category="care">
+                <div class="relative">
+                    <img src="https://shoplineimg.com/5e01db072bf93f001e19c6ec/625671e81911fc001bba358b/800x.webp?source_format=jpg" alt="商品圖片" class="w-full aspect-square object-cover">
+                    <button class="absolute top-3 right-3 w-8 h-8 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-purple-500/20 hover:text-purple-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold mb-2 line-clamp-2">巴西Intt 陰道護理保濕凝膠潤滑液套組</h3>
+                    <div class="flex items-center text-sm text-gray-400 mb-3">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <span>4.8</span>
+                        <span class="mx-2">|</span>
+                        <span>已售 890</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-purple-500">
+                            <span class="text-sm">$</span>
+                            <span class="text-xl font-bold">45.99</span>
+                        </div>
+                        <a href="cart.html" class="p-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 情趣用品 - 更多商品 -->
+            <div class="glass-effect rounded-xl overflow-hidden group" data-category="adult-toys">
+                <div class="relative">
+                    <img src="https://shoplineimg.com/5e01db072bf93f001e19c6ec/633fde782ec6850031d65300/800x.webp?source_format=jpg" alt="商品圖片" class="w-full aspect-square object-cover">
+                    <button class="absolute top-3 right-3 w-8 h-8 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-purple-500/20 hover:text-purple-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold mb-2 line-clamp-2">新軟嫩假屌按摩棒</h3>
+                    <div class="flex items-center text-sm text-gray-400 mb-3">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <span>4.8</span>
+                        <span class="mx-2">|</span>
+                        <span>已售 1.5k</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-purple-500">
+                            <span class="text-sm">$</span>
+                            <span class="text-xl font-bold">45.99</span>
+                        </div>
+                        <a href="cart.html" class="p-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 保健品 - 更多商品 -->
+            <div class="glass-effect rounded-xl overflow-hidden group" data-category="health">
+                <div class="relative">
+                    <img src="https://megapx-assets.dcard.tw/images/17845473-9f71-4865-82ad-912837603a73/1280.webp" alt="商品圖片" class="w-full aspect-square object-cover">
+                    <button class="absolute top-3 right-3 w-8 h-8 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-purple-500/20 hover:text-purple-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="absolute top-3 left-3 px-2 py-1 bg-yellow-500 rounded text-sm">熱賣</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold mb-2 line-clamp-2">濃縮強力黑瑪卡</h3>
+                    <div class="flex items-center text-sm text-gray-400 mb-3">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <span>4.9</span>
+                        <span class="mx-2">|</span>
+                        <span>已售 2.1k</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-purple-500">
+                            <span class="text-sm">$</span>
+                            <span class="text-xl font-bold">59.99</span>
+                        </div>
+                        <a href="cart.html" class="p-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 服裝配飾 - 更多商品 -->
+            <div class="glass-effect rounded-xl overflow-hidden group" data-category="fashion">
+                <div class="relative">
+                    <img src="https://shoplineimg.com/5e01db072bf93f001e19c6ec/677e3f765b28b7000e038556/800x.webp?source_format=jpg" alt="商品圖片" class="w-full aspect-square object-cover">
+                    <button class="absolute top-3 right-3 w-8 h-8 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-purple-500/20 hover:text-purple-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="absolute top-3 left-3 px-2 py-1 bg-purple-500 rounded text-sm">新品</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold mb-2 line-clamp-2">性感情趣網衣</h3>
+                    <div class="flex items-center text-sm text-gray-400 mb-3">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <span>4.7</span>
+                        <span class="mx-2">|</span>
+                        <span>已售 890</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-purple-500">
+                            <span class="text-sm">$</span>
+                            <span class="text-xl font-bold">24.99</span>
+                        </div>
+                        <a href="cart.html" class="p-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 情趣內衣 - 更多商品 -->
+            <div class="glass-effect rounded-xl overflow-hidden group" data-category="lingerie">
+                <div class="relative">
+                    <img src="https://shoplineimg.com/5e01db072bf93f001e19c6ec/677e307244115200101f42fd/800x.webp?source_format=jpg" alt="商品圖片" class="w-full aspect-square object-cover">
+                    <button class="absolute top-3 right-3 w-8 h-8 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-purple-500/20 hover:text-purple-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold mb-2 line-clamp-2">透視網紗睡裙</h3>
+                    <div class="flex items-center text-sm text-gray-400 mb-3">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <span>4.8</span>
+                        <span class="mx-2">|</span>
+                        <span>已售 1.3k</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-purple-500">
+                            <span class="text-sm">$</span>
+                            <span class="text-xl font-bold">29.99</span>
+                        </div>
+                        <a href="cart.html" class="p-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 保養護理 - 更多商品 -->
+            <div class="glass-effect rounded-xl overflow-hidden group" data-category="care">
+                <div class="relative">
+                    <img src="https://shoplineimg.com/5e01db072bf93f001e19c6ec/63048583bb03510025a5fc6a/800x.webp?source_format=jpg" alt="商品圖片" class="w-full aspect-square object-cover">
+                    <button class="absolute top-3 right-3 w-8 h-8 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-purple-500/20 hover:text-purple-500">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="absolute top-3 left-3 px-2 py-1 bg-green-500 rounded text-sm">優惠</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold mb-2 line-clamp-2">HARU FEMININE CARE 女性私密護理潤滑液</h3>
+                    <div class="flex items-center text-sm text-gray-400 mb-3">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <span>4.9</span>
+                        <span class="mx-2">|</span>
+                        <span>已售 2.3k</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-purple-500">
+                                <span class="text-sm">$</span>
+                                <span class="text-xl font-bold">19.99</span>
+                            </div>
+                            <div class="text-sm text-gray-400 line-through">$24.99</div>
+                        </div>
+                        <a href="cart.html" class="p-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 購物車側邊欄 -->
+        <div class="fixed top-0 right-0 bottom-0 w-96 glass-effect transform translate-x-full transition-transform duration-300 z-50" id="cart">
+            <div class="flex flex-col h-full">
+                <!-- 購物車頭部 -->
+                <div class="p-4 border-b border-gray-800">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-bold">購物車</h2>
+                        <button class="p-2 hover:bg-gray-800/50 rounded-full" onclick="toggleCart()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 購物車商品列表 -->
+                <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                    <!-- 購物車商品 -->
+                    <div class="flex items-center space-x-4">
+                        <img src="https://via.placeholder.com/80" alt="商品圖片" class="w-20 h-20 rounded-lg object-cover">
+                        <div class="flex-1">
+                            <h3 class="font-medium mb-1">商品名稱商品名稱</h3>
+                            <div class="text-purple-500">
+                                <span class="text-sm">$</span>
+                                <span class="text-lg font-bold">29.99</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="w-8 h-8 bg-gray-800/50 rounded-lg hover:bg-purple-500/20 hover:text-purple-500">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <span class="w-8 text-center">1</span>
+                            <button class="w-8 h-8 bg-gray-800/50 rounded-lg hover:bg-purple-500/20 hover:text-purple-500">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 更多購物車商品... -->
+                </div>
+                
+                <!-- 購物車底部 -->
+                <div class="p-4 border-t border-gray-800">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-gray-400">總計</span>
+                        <div class="text-purple-500">
+                            <span class="text-sm">$</span>
+                            <span class="text-2xl font-bold">89.97</span>
+                        </div>
+                    </div>
+                    <button class="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg font-medium hover:opacity-90 transition-opacity">
+                        結帳
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 頁腳 -->
+    <footer class="bg-gray-900/50 border-t border-white/10 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">關於我們</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">公司介紹</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">服務條款</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">隱私政策</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">聯繫我們</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">用戶服務</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">會員中心</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">購物指南</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">常見問題</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">意見反饋</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">商務合作</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">商家入駐</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">廣告投放</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">合作夥伴</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">招商加盟</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">關注我們</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors text-2xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors text-2xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors text-2xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors text-2xl">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-400">24小時客服專線</p>
+                        <p class="text-xl font-bold text-purple-500">0800-888-888</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-800">
+                <p class="text-center text-gray-400">&copy; 2024 X-five. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 手機端選單功能
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMenuButton = document.getElementById('closeMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuContent = mobileMenu.querySelector('.transform');
+
+        function openMobileMenu() {
+            document.body.style.overflow = 'hidden';
+            mobileMenu.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                mobileMenuContent.classList.remove('translate-x-full');
+            });
+        }
+
+        function closeMobileMenu() {
+            mobileMenuContent.classList.add('translate-x-full');
+            setTimeout(() => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        mobileMenuButton.addEventListener('click', openMobileMenu);
+        closeMenuButton.addEventListener('click', closeMobileMenu);
+
+        // 分類篩選功能
+        const categoryButtons = document.querySelectorAll('[data-category]');
+        const products = document.querySelectorAll('#productGrid > div');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 更新按鈕樣式
+                categoryButtons.forEach(btn => {
+                    btn.classList.remove('bg-purple-500');
+                    btn.classList.add('bg-gray-800/50');
+                });
+                button.classList.remove('bg-gray-800/50');
+                button.classList.add('bg-purple-500');
+                
+                // 篩選商品
+                const category = button.dataset.category;
+                products.forEach(product => {
+                    if (category === 'all' || product.dataset.category === category) {
+                        product.style.display = '';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 購物車開關
+        function toggleCart() {
+            const cart = document.getElementById('cart');
+            cart.classList.toggle('translate-x-full');
+        }
+        
+        // 購物車按鈕點擊事件
+        document.querySelector('.fa-shopping-cart').parentElement.addEventListener('click', toggleCart);
+        
+        // 收藏按鈕點擊事件
+        document.querySelectorAll('.fa-heart').forEach(heart => {
+            heart.parentElement.addEventListener('click', function() {
+                this.classList.toggle('text-red-500');
+            });
+        });
+    </script>
+</body>
+</html>

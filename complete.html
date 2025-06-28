@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>訂單完成 - PlayHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- 導航欄 -->
+    <nav class="fixed w-full z-30 glass-effect">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">X-five</a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#games" class="hover:text-purple-400 transition-colors">遊戲</a>
+                    <a href="index.html#live" class="hover:text-purple-400 transition-colors">直播</a>
+                    <a href="index.html#videos" class="hover:text-purple-400 transition-colors">短視頻</a>
+                    <a href="index.html#shop" class="hover:text-purple-400 transition-colors">商城</a>
+                    <a href="login.html" class="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full hover:opacity-90 transition-opacity">登入</a>
+                </div>
+                
+                <div class="md:hidden">
+                    <button class="text-2xl" id="mobileMenuButton"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 手機端選單 (全頁式) -->
+    <div id="mobileMenu" class="fixed inset-0 bg-black z-50 hidden">
+        <div class="h-full w-full transform transition-transform duration-300 translate-y-full bg-gray-900">
+            <div class="p-6 h-full flex flex-col">
+                <div class="flex justify-between items-center mb-12">
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">PlayHub</a>
+                    <button class="text-2xl" id="closeMenuButton">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <nav class="flex-1 flex flex-col justify-center space-y-8 text-center text-xl">
+                    <a href="index.html#games" class="block hover:text-purple-400 transition-colors">遊戲</a>
+                    <a href="index.html#live" class="block hover:text-purple-400 transition-colors">直播</a>
+                    <a href="index.html#videos" class="block hover:text-purple-400 transition-colors">短視頻</a>
+                    <a href="index.html#shop" class="block hover:text-purple-400 transition-colors">商城</a>
+                    <a href="login.html" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full hover:opacity-90 transition-opacity text-base">登入</a>
+                </nav>
+                <div class="mt-auto pb-8 text-center">
+                    <div class="flex justify-center space-x-6 text-2xl mb-4">
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <p class="text-sm text-gray-400">&copy; 2024 PlayHub. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-24 max-w-2xl">
+        <div class="glass-effect rounded-xl p-8">
+            <div class="text-center mb-8">
+                <div class="inline-block p-4 bg-green-500/20 rounded-full mb-4">
+                    <i class="fas fa-check text-2xl text-green-400"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-white">訂單已完成</h1>
+                <p class="text-gray-400 mt-2">訂單編號：#12345</p>
+            </div>
+
+            <div class="glass-effect rounded-lg p-6 mb-6">
+                <h2 class="text-lg font-semibold mb-4 text-white">訂單摘要</h2>
+                <div class="space-y-2">
+                    <div class="flex justify-between text-gray-300">
+                        <span>商品小計</span>
+                        <span>NT$3,600</span>
+                    </div>
+                    <div class="flex justify-between text-gray-300">
+                        <span>運費</span>
+                        <span>NT$100</span>
+                    </div>
+                    <div class="flex justify-between font-bold pt-2 border-t border-gray-700 text-white">
+                        <span>總計</span>
+                        <span>NT$3,700</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-effect rounded-lg p-6 mb-6">
+                <h2 class="text-lg font-semibold mb-4 text-white">配送資訊</h2>
+                <div class="space-y-4 text-sm">
+                    <div class="flex items-center text-gray-300">
+                        <i class="fas fa-truck w-6 text-purple-400"></i>
+                        <span>預計1-3個工作天內出貨</span>
+                    </div>
+                    <div class="flex items-center text-gray-300">
+                        <i class="fas fa-envelope w-6 text-purple-400"></i>
+                        <span>已寄送訂單確認信至您的信箱</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center space-x-4">
+                <a href="index.html" class="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full hover:opacity-90 transition-opacity">
+                    <i class="fas fa-shopping-bag mr-2"></i>繼續購物
+                </a>
+                <a href="#" class="px-6 py-2 glass-effect rounded-full hover:bg-gray-800/50 transition-colors">
+                    <i class="fas fa-file-alt mr-2"></i>查看訂單
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('main > div > div');
+            elements.forEach((el, i) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    el.style.transition = 'all 0.4s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, i * 150);
+            });
+        });
+
+        // 手機端選單功能
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMenuButton = document.getElementById('closeMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuContent = mobileMenu.querySelector('.transform');
+
+        function openMobileMenu() {
+            document.body.style.overflow = 'hidden'; // 防止背景滾動
+            mobileMenu.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                mobileMenuContent.classList.remove('translate-y-full');
+            });
+        }
+
+        function closeMobileMenu() {
+            mobileMenuContent.classList.add('translate-y-full');
+            setTimeout(() => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = ''; // 恢復背景滾動
+            }, 300);
+        }
+
+        mobileMenuButton.addEventListener('click', openMobileMenu);
+        closeMenuButton.addEventListener('click', closeMobileMenu);
+
+        // 點擊選單項目時也關閉選單
+        const menuLinks = mobileMenu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+    </script>
+</body>
+</html>

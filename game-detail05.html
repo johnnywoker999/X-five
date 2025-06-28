@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-five - 魔法世界</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Framer Motion -->
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @keyframes fadeIn {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .hover-scale {
+            transition: all 0.5s ease-out;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .hover-scale.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.03);
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .game-cover {
+            background-image: url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1461770/header.jpg?t=1613707457');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-gray-900 to-black text-white">
+    <!-- 導航欄 -->
+    <nav class="fixed w-full z-50 glass-effect">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">X-five</a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#games" class="hover:text-purple-400 transition-colors">遊戲</a>
+                    <a href="index.html#live" class="hover:text-purple-400 transition-colors">直播</a>
+                    <a href="index.html#videos" class="hover:text-purple-400 transition-colors">短視頻</a>
+                    <a href="index.html#shop" class="hover:text-purple-400 transition-colors">商城</a>
+                    <a href="login.html" class="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full hover:opacity-90 transition-opacity">登入</a>
+                </div>
+                
+                <div class="md:hidden">
+                    <button class="text-2xl" id="mobileMenuButton">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 手機端選單 (全頁式) -->
+    <div id="mobileMenu" class="fixed inset-0 bg-gray-900 z-50 hidden">
+        <div class="h-full w-full transform transition-transform duration-300 translate-y-full">
+            <div class="p-6 h-full flex flex-col">
+                <div class="flex justify-between items-center mb-12">
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">X-five</a>
+                    <button class="text-2xl" id="closeMenuButton">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <nav class="flex-1 flex flex-col justify-center space-y-8 text-center text-xl">
+                    <a href="index.html#games" class="block hover:text-purple-400 transition-colors">遊戲</a>
+                    <a href="index.html#live" class="block hover:text-purple-400 transition-colors">直播</a>
+                    <a href="index.html#videos" class="block hover:text-purple-400 transition-colors">短視頻</a>
+                    <a href="index.html#shop" class="block hover:text-purple-400 transition-colors">商城</a>
+                    <a href="login.html" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full hover:opacity-90 transition-opacity text-base">登入</a>
+                </nav>
+                <div class="mt-auto pb-8 text-center">
+                    <div class="flex justify-center space-x-6 text-2xl mb-4">
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <p class="text-sm text-gray-400">&copy; 2024 X-five. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 遊戲封面區域 -->
+    <div class="relative h-[60vh] game-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent">
+            <div class="container mx-auto px-4 h-full flex items-end pb-12">
+                <div class="max-w-3xl">
+                    <h1 class="text-4xl font-bold mb-4">魔法世界</h1>
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-500 mr-2"></i>
+                            <span class="font-bold">4.8</span>
+                            <span class="text-gray-400 ml-1">(2.5k 評分)</span>
+                        </div>
+                        <div class="text-gray-400">|</div>
+                        <div class="text-gray-400">角色扮演</div>
+                        <div class="text-gray-400">|</div>
+                        <div class="text-gray-400">支持多人遊戲</div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg font-medium hover:opacity-90 transition-opacity">
+                            立即遊玩
+                        </button>
+                        <button class="p-3 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <button class="p-3 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 主要內容 -->
+    <main class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- 左側內容 -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- 遊戲簡介 -->
+                <div class="glass-effect rounded-2xl p-6">
+                    <h2 class="text-2xl font-bold mb-4">遊戲簡介</h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        在這個充滿魔法的世界中，你將扮演一位天賦異稟的魔法師學徒。通過探索神秘的魔法學院，學習各種魔法技能，結交志同道合的夥伴，共同對抗黑暗勢力的威脅。遊戲採用開放世界設計，玩家可以自由探索廣闊的魔法大陸，完成豐富的任務，體驗精彩的劇情。
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                        <div class="text-center p-4 bg-gray-800/50 rounded-xl">
+                            <div class="text-purple-500 mb-2">
+                                <i class="fas fa-users text-2xl"></i>
+                            </div>
+                            <div class="text-sm text-gray-400">多人遊戲</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-800/50 rounded-xl">
+                            <div class="text-purple-500 mb-2">
+                                <i class="fas fa-globe text-2xl"></i>
+                            </div>
+                            <div class="text-sm text-gray-400">開放世界</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-800/50 rounded-xl">
+                            <div class="text-purple-500 mb-2">
+                                <i class="fas fa-hat-wizard text-2xl"></i>
+                            </div>
+                            <div class="text-sm text-gray-400">魔法冒險</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-800/50 rounded-xl">
+                            <div class="text-purple-500 mb-2">
+                                <i class="fas fa-clock text-2xl"></i>
+                            </div>
+                            <div class="text-sm text-gray-400">40+ 小時</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 遊戲截圖 -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">遊戲截圖</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1461770/ss_a8cfa875ee2f4a3979db57b3b52d2aabc89656ab.600x338.jpg?t=1613707457" alt="遊戲截圖" class="rounded-xl w-full">
+                        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1461770/ss_2a7283ecbee99482b94b9fcd01c7832a91193720.600x338.jpg?t=1613707457" alt="遊戲截圖" class="rounded-xl w-full">
+                        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1461770/ss_96c8707737f9e4d38a1ec679065775c748ab66a1.600x338.jpg?t=1613707457" alt="遊戲截圖" class="rounded-xl w-full">
+                        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1461770/ss_12fa8a82aef960fb26188be527587276e5afd68d.600x338.jpg?t=1613707457" alt="遊戲截圖" class="rounded-xl w-full">
+                    </div>
+                </div>
+                
+                <!-- 玩家評論 -->
+                <div class="glass-effect rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold">玩家評論</h2>
+                        <button class="px-4 py-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            寫評論
+                        </button>
+                    </div>
+                    <div class="space-y-6">
+                        <!-- 評論項目 -->
+                        <div class="border-b border-gray-800 pb-6">
+                            <div class="flex items-start space-x-4">
+                                <img src="https://via.placeholder.com/40" alt="用戶頭像" class="w-10 h-10 rounded-full">
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div>
+                                            <span class="font-medium">玩家名稱</span>
+                                            <span class="text-gray-400 text-sm ml-2">2023-10-15</span>
+                                        </div>
+                                        <div class="flex items-center text-yellow-500">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-400">遊戲畫面精美，劇情豐富，魔法系統設計得很有趣。特別喜歡開放世界的探索體驗，每次都能發現新的驚喜。</p>
+                                    <div class="flex items-center space-x-4 mt-4">
+                                        <button class="flex items-center space-x-2 text-gray-400 hover:text-purple-500">
+                                            <i class="fas fa-thumbs-up"></i>
+                                            <span>128</span>
+                                        </button>
+                                        <button class="text-gray-400 hover:text-purple-500">
+                                            <i class="fas fa-comment"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="border-b border-gray-800 pb-6">
+                            <div class="flex items-start space-x-4">
+                                <img src="https://via.placeholder.com/40" alt="用戶頭像" class="w-10 h-10 rounded-full">
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div>
+                                            <span class="font-medium">玩家名稱</span>
+                                            <span class="text-gray-400 text-sm ml-2">2023-10-14</span>
+                                        </div>
+                                        <div class="flex items-center text-yellow-500">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-400">多人遊戲模式非常有趣，可以和朋友一起組隊冒險。不過有些任務的難度可能需要調整，對新手來說有點困難。</p>
+                                    <div class="flex items-center space-x-4 mt-4">
+                                        <button class="flex items-center space-x-2 text-gray-400 hover:text-purple-500">
+                                            <i class="fas fa-thumbs-up"></i>
+                                            <span>85</span>
+                                        </button>
+                                        <button class="text-gray-400 hover:text-purple-500">
+                                            <i class="fas fa-comment"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右側信息 -->
+            <div class="space-y-8">
+                <!-- 遊戲信息 -->
+                <div class="glass-effect rounded-2xl p-6">
+                    <h3 class="text-xl font-bold mb-4">遊戲信息</h3>
+                    <div class="space-y-4 text-gray-400">
+                        <div class="flex justify-between">
+                            <span>開發商</span>
+                            <span class="text-white">魔法工作室</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>發行日期</span>
+                            <span class="text-white">2023-10-01</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>遊戲類型</span>
+                            <span class="text-white">角色扮演</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>支持平台</span>
+                            <span class="text-white">PC, Mobile</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>語言</span>
+                            <span class="text-white">繁體中文</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>檔案大小</span>
+                            <span class="text-white">2.5 GB</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 系統需求 -->
+                <div class="glass-effect rounded-2xl p-6">
+                    <h3 class="text-xl font-bold mb-4">系統需求</h3>
+                    <div class="space-y-4 text-gray-400">
+                        <div>
+                            <div class="font-medium text-white mb-2">最低配置</div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span>作業系統</span>
+                                    <span>Windows 10</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>處理器</span>
+                                    <span>Intel i5</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>記憶體</span>
+                                    <span>8 GB RAM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>顯示卡</span>
+                                    <span>GTX 1060</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-4">
+                            <div class="font-medium text-white mb-2">建議配置</div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span>作業系統</span>
+                                    <span>Windows 10</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>處理器</span>
+                                    <span>Intel i7</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>記憶體</span>
+                                    <span>16 GB RAM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>顯示卡</span>
+                                    <span>RTX 2060</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 相關遊戲 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">相關遊戲</h3>
+                    <div class="space-y-4">
+                        <div class="glass-effect rounded-xl overflow-hidden group">
+                            <div class="relative">
+                                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2998600/header_tchinese.jpg?t=1746100915" alt="遊戲封面" class="w-full h-32 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button class="w-full py-2 bg-purple-500 rounded-lg font-medium hover:bg-purple-600 transition-colors">
+                                        查看詳情
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="font-bold mb-1">異世界歸來的我&nbsp;</h4>
+                                <p class="text-sm text-gray-400">角色扮演 · 奇幻</p>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-effect rounded-xl overflow-hidden group">
+                            <div class="relative">
+                                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/958260/header.jpg?t=1743489571" alt="遊戲封面" class="w-full h-32 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button class="w-full py-2 bg-purple-500 rounded-lg font-medium hover:bg-purple-600 transition-colors">
+                                        查看詳情
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="font-bold mb-1">美女沙灘排球</h4>
+                                <p class="text-sm text-gray-400">運動 · 多人</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 底部導航 -->
+    <footer class="bg-black py-10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">關於我們</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">公司介紹</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">聯繫我們</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">加入我們</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-4">用戶服務</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">幫助中心</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">意見反饋</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">投訴建議</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-4">商務合作</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">商務洽談</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">廣告投放</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">內容合作</a></li>
+                    </ul>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-xl font-bold mb-4">關注我們</h4>
+                        <div class="flex space-x-4 text-2xl">
+                            <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-4">訂閱最新消息</h4>
+                        <form class="flex flex-col gap-3">
+                            <input type="email" placeholder="請輸入您的電子郵件" 
+                                   class="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-purple-500">
+                            <button type="submit" 
+                                    class="bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2 rounded-lg hover:opacity-90 transition-opacity text-sm">
+                                立即訂閱
+                            </button>
+                            <p class="text-xs text-gray-400">我們重視您的隱私，您可以隨時取消訂閱</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 X-five. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 滾動動畫
+        function checkScroll() {
+            const elements = document.querySelectorAll('.hover-scale');
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                if (rect.top < windowHeight * 0.85) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // 初始檢查
+        document.addEventListener('DOMContentLoaded', () => {
+            checkScroll();
+            setTimeout(checkScroll, 100);
+        });
+
+        // 滾動時檢查
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                window.cancelAnimationFrame(scrollTimeout);
+            }
+            scrollTimeout = window.requestAnimationFrame(checkScroll);
+        }, { passive: true });
+
+        // 導航欄滾動效果
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+
+        function handleScroll() {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll <= 0) {
+                nav.classList.remove('scroll-up');
+                return;
+            }
+
+            if (currentScroll > lastScroll && !nav.classList.contains('scroll-down')) {
+                nav.classList.remove('scroll-up');
+                nav.classList.add('scroll-down');
+            } else if (currentScroll < lastScroll && nav.classList.contains('scroll-down')) {
+                nav.classList.remove('scroll-down');
+                nav.classList.add('scroll-up');
+            }
+            lastScroll = currentScroll;
+        }
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        // 點讚功能
+        const likeButtons = document.querySelectorAll('.fa-thumbs-up');
+        likeButtons.forEach(button => {
+            button.parentElement.addEventListener('click', function() {
+                this.classList.toggle('text-purple-500');
+                const count = this.querySelector('span');
+                const currentLikes = parseInt(count.textContent);
+                count.textContent = this.classList.contains('text-purple-500') ? currentLikes + 1 : currentLikes - 1;
+            });
+        });
+        
+        // 收藏功能
+        const heartButton = document.querySelector('.fa-heart');
+        heartButton.parentElement.addEventListener('click', function() {
+            heartButton.classList.toggle('text-red-500');
+        });
+        
+        // 圖片預覽
+        const screenshots = document.querySelectorAll('img[alt="遊戲截圖"]');
+        screenshots.forEach(img => {
+            img.addEventListener('click', function() {
+                // 這裡可以添加圖片預覽功能
+                console.log('打開圖片預覽');
+            });
+        });
+
+        // 手機端選單功能
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMenuButton = document.getElementById('closeMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuContent = mobileMenu.querySelector('.transform');
+
+        function openMobileMenu() {
+            document.body.style.overflow = 'hidden'; // 防止背景滾動
+            mobileMenu.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                mobileMenuContent.classList.remove('translate-y-full');
+            });
+        }
+
+        function closeMobileMenu() {
+            mobileMenuContent.classList.add('translate-y-full');
+            setTimeout(() => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = ''; // 恢復背景滾動
+            }, 300);
+        }
+
+        mobileMenuButton.addEventListener('click', openMobileMenu);
+        closeMenuButton.addEventListener('click', closeMobileMenu);
+    </script>
+</body>
+</html>

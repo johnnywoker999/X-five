@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayHub - 短視頻</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Framer Motion -->
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .video-container {
+            height: calc(100vh - 64px);
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: var(--progress, 0%);
+            background: #fff;
+            transition: width 0.1s linear;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <!-- 頂部導航欄 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="text-xl font-bold">PlayHub</a>
+                <div class="flex items-center space-x-6">
+                    <button class="p-2 hover:bg-gray-800/50 rounded-full">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="p-2 hover:bg-gray-800/50 rounded-full">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 視頻列表 -->
+    <div class="pt-16">
+        <div class="video-container relative">
+            <!-- 視頻播放器 -->
+            <video class="w-full h-full object-cover" poster="https://via.placeholder.com/1080x1920" playsinline loop>
+                <source src="#" type="video/mp4">
+            </video>
+            
+            <!-- 進度條 -->
+            <div class="progress-bar w-full"></div>
+            
+            <!-- 視頻信息浮層 -->
+            <div class="absolute inset-0 flex items-end">
+                <div class="w-full p-4 glass-effect">
+                    <!-- 用戶信息 -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://via.placeholder.com/40" alt="用戶頭像" class="w-10 h-10 rounded-full">
+                            <div>
+                                <div class="font-medium">用戶名稱</div>
+                                <div class="text-sm text-gray-400">2023-10-15</div>
+                            </div>
+                        </div>
+                        <button class="px-4 py-1 bg-purple-500 rounded-full text-sm font-medium hover:bg-purple-600 transition-colors">
+                            關注
+                        </button>
+                    </div>
+                    
+                    <!-- 視頻描述 -->
+                    <p class="text-sm mb-4">這是一段視頻描述，可以包含 #標籤 和 @用戶名</p>
+                    
+                    <!-- 互動按鈕 -->
+                    <div class="flex items-center space-x-6">
+                        <button class="flex items-center space-x-2">
+                            <i class="fas fa-heart text-2xl"></i>
+                            <span>12.5k</span>
+                        </button>
+                        <button class="flex items-center space-x-2">
+                            <i class="fas fa-comment text-2xl"></i>
+                            <span>1.2k</span>
+                        </button>
+                        <button class="flex items-center space-x-2">
+                            <i class="fas fa-share text-2xl"></i>
+                            <span>分享</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 側邊互動欄 -->
+            <div class="absolute right-4 bottom-32 flex flex-col items-center space-y-6">
+                <button class="w-12 h-12 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors">
+                    <i class="fas fa-chevron-up text-2xl"></i>
+                </button>
+                <button class="w-12 h-12 bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 評論面板 -->
+    <div class="fixed inset-0 bg-black/80 z-50 hidden" id="commentPanel">
+        <div class="absolute bottom-0 left-0 right-0 bg-gray-900 rounded-t-2xl">
+            <!-- 評論頭部 -->
+            <div class="flex items-center justify-between p-4 border-b border-gray-800">
+                <h2 class="text-lg font-bold">評論 (1.2k)</h2>
+                <button class="p-2 hover:bg-gray-800/50 rounded-full" onclick="toggleComments()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- 評論列表 -->
+            <div class="h-96 overflow-y-auto p-4 space-y-6">
+                <!-- 評論項目 -->
+                <div class="flex items-start space-x-3">
+                    <img src="https://via.placeholder.com/40" alt="用戶頭像" class="w-10 h-10 rounded-full">
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="font-medium">用戶名稱</span>
+                            <span class="text-sm text-gray-400">2小時前</span>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-2">這是一條評論內容，可能會很長很長很長...</p>
+                        <div class="flex items-center space-x-4 text-sm">
+                            <button class="flex items-center space-x-1 text-gray-400 hover:text-purple-500">
+                                <i class="fas fa-heart"></i>
+                                <span>128</span>
+                            </button>
+                            <button class="text-gray-400 hover:text-purple-500">回覆</button>
+                        </div>
+                        
+                        <!-- 回覆列表 -->
+                        <div class="mt-4 space-y-4 pl-4 border-l border-gray-800">
+                            <div class="flex items-start space-x-3">
+                                <img src="https://via.placeholder.com/32" alt="用戶頭像" class="w-8 h-8 rounded-full">
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-medium">用戶名稱</span>
+                                        <span class="text-sm text-gray-400">1小時前</span>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mb-2">這是一條回覆...</p>
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        <button class="flex items-center space-x-1 text-gray-400 hover:text-purple-500">
+                                            <i class="fas fa-heart"></i>
+                                            <span>32</span>
+                                        </button>
+                                        <button class="text-gray-400 hover:text-purple-500">回覆</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 評論輸入框 -->
+            <div class="p-4 border-t border-gray-800">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-1 relative">
+                        <input type="text" placeholder="說點什麼..." class="w-full px-4 py-2 bg-gray-800/50 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <button class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                            <i class="fas fa-smile text-gray-400 hover:text-purple-500"></i>
+                        </button>
+                    </div>
+                    <button class="px-6 py-2 bg-purple-500 rounded-full font-medium hover:bg-purple-600 transition-colors">
+                        發送
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 視頻播放控制
+        const video = document.querySelector('video');
+        const progressBar = document.querySelector('.progress-bar');
+        
+        video.addEventListener('timeupdate', () => {
+            const progress = (video.currentTime / video.duration) * 100;
+            progressBar.style.setProperty('--progress', `${progress}%`);
+        });
+        
+        // 點擊視頻播放/暫停
+        video.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+        
+        // 評論面板開關
+        function toggleComments() {
+            const panel = document.getElementById('commentPanel');
+            panel.classList.toggle('hidden');
+        }
+        
+        // 評論按鈕點擊事件
+        document.querySelector('.fa-comment').parentElement.addEventListener('click', toggleComments);
+        
+        // 點讚按鈕點擊事件
+        const likeButton = document.querySelector('.fa-heart');
+        likeButton.parentElement.addEventListener('click', function() {
+            this.classList.toggle('text-red-500');
+            const count = this.querySelector('span');
+            const currentLikes = parseInt(count.textContent);
+            count.textContent = this.classList.contains('text-red-500') ? 
+                (currentLikes + 1) + 'k' : 
+                (currentLikes - 1) + 'k';
+        });
+        
+        // 關注按鈕點擊事件
+        const followButton = document.querySelector('.bg-purple-500');
+        followButton.addEventListener('click', function() {
+            this.classList.toggle('bg-gray-600');
+            this.classList.toggle('bg-purple-500');
+            this.textContent = this.classList.contains('bg-gray-600') ? '已關注' : '關注';
+        });
+        
+        // 上下滑動切換視頻
+        const upButton = document.querySelector('.fa-chevron-up').parentElement;
+        const downButton = document.querySelector('.fa-chevron-down').parentElement;
+        
+        upButton.addEventListener('click', () => {
+            console.log('上一個視頻');
+        });
+        
+        downButton.addEventListener('click', () => {
+            console.log('下一個視頻');
+        });
+    </script>
+</body>
+</html>

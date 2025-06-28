@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayHub - 個人中心</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Framer Motion -->
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .tab-indicator {
+            transition: transform 0.3s ease;
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-gray-900 to-black text-white min-h-screen">
+    <!-- 頂部導航欄 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="text-xl font-bold">PlayHub</a>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 hover:bg-gray-800/50 rounded-full">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <button class="p-2 hover:bg-gray-800/50 rounded-full">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 主要內容 -->
+    <main class="container mx-auto px-4 pt-20 pb-16">
+        <!-- 用戶信息卡片 -->
+        <div class="glass-effect rounded-2xl p-6 mb-8">
+            <div class="flex items-center space-x-6">
+                <div class="relative">
+                    <img src="https://via.placeholder.com/100" alt="用戶頭像" class="w-24 h-24 rounded-full object-cover">
+                    <button class="absolute bottom-0 right-0 bg-purple-500 p-2 rounded-full hover:bg-purple-600 transition-colors">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center space-x-4 mb-2">
+                        <h2 class="text-2xl font-bold">用戶名稱</h2>
+                        <span class="px-3 py-1 bg-purple-500/20 text-purple-500 rounded-full text-sm">VIP會員</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">ID: 888888</p>
+                    <div class="flex space-x-6">
+                        <div class="text-center">
+                            <div class="font-bold">258</div>
+                            <div class="text-sm text-gray-400">關注</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-bold">1.2k</div>
+                            <div class="text-sm text-gray-400">粉絲</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-bold">5.8k</div>
+                            <div class="text-sm text-gray-400">收藏</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg font-medium hover:opacity-90 transition-opacity">
+                    編輯資料
+                </button>
+            </div>
+        </div>
+        
+        <!-- 標籤頁導航 -->
+        <div class="relative mb-8">
+            <div class="flex space-x-8 border-b border-gray-800">
+                <button class="py-4 px-2 text-purple-500 relative" data-tab="orders">
+                    訂單記錄
+                    <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-500 tab-indicator"></div>
+                </button>
+                <button class="py-4 px-2 text-gray-400 relative" data-tab="favorites">
+                    我的收藏
+                </button>
+                <button class="py-4 px-2 text-gray-400 relative" data-tab="wallet">
+                    我的錢包
+                </button>
+                <button class="py-4 px-2 text-gray-400 relative" data-tab="settings">
+                    賬戶設置
+                </button>
+            </div>
+        </div>
+        
+        <!-- 訂單記錄 -->
+        <div id="orders" class="space-y-6">
+            <div class="glass-effect rounded-xl p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="font-bold mb-1">遊戲購買 - 魔法世界</h3>
+                        <p class="text-sm text-gray-400">訂單號：ORDER123456789</p>
+                    </div>
+                    <span class="px-4 py-1 bg-green-500/20 text-green-500 rounded-full">已完成</span>
+                </div>
+                <div class="flex items-center justify-between text-sm text-gray-400">
+                    <span>2023-10-15 14:30</span>
+                    <span>$29.99</span>
+                </div>
+            </div>
+            
+            <div class="glass-effect rounded-xl p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="font-bold mb-1">直播打賞 - 主播小美</h3>
+                        <p class="text-sm text-gray-400">訂單號：ORDER987654321</p>
+                    </div>
+                    <span class="px-4 py-1 bg-green-500/20 text-green-500 rounded-full">已完成</span>
+                </div>
+                <div class="flex items-center justify-between text-sm text-gray-400">
+                    <span>2023-10-14 20:15</span>
+                    <span>$50.00</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 我的收藏 -->
+        <div id="favorites" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 遊戲收藏 -->
+                <div class="glass-effect rounded-xl overflow-hidden group">
+                    <div class="relative">
+                        <img src="https://via.placeholder.com/400x225" alt="遊戲封面" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                            <button class="w-full py-2 bg-purple-500 rounded-lg font-medium hover:bg-purple-600 transition-colors">
+                                立即遊玩
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-2">魔法世界</h3>
+                        <p class="text-sm text-gray-400">角色扮演 · 收藏於 2023-10-15</p>
+                    </div>
+                </div>
+                
+                <!-- 直播收藏 -->
+                <div class="glass-effect rounded-xl overflow-hidden group">
+                    <div class="relative">
+                        <img src="https://via.placeholder.com/400x225" alt="直播封面" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 left-2 px-2 py-1 bg-red-500 rounded text-sm">LIVE</div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                            <button class="w-full py-2 bg-purple-500 rounded-lg font-medium hover:bg-purple-600 transition-colors">
+                                進入直播間
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-2">主播小美</h3>
+                        <p class="text-sm text-gray-400">舞蹈 · 收藏於 2023-10-14</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 我的錢包 -->
+        <div id="wallet" class="hidden space-y-8">
+            <!-- 餘額信息 -->
+            <div class="glass-effect rounded-xl p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold">賬戶餘額</h3>
+                    <button class="px-4 py-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                        充值
+                    </button>
+                </div>
+                <div class="text-3xl font-bold mb-4">$1,280.50</div>
+                <div class="grid grid-cols-2 gap-4">
+                    <button class="p-3 bg-gray-800/50 rounded-lg hover:bg-purple-500/20 hover:text-purple-500 transition-colors">
+                        <i class="fas fa-wallet mr-2"></i>提現
+                    </button>
+                    <button class="p-3 bg-gray-800/50 rounded-lg hover:bg-purple-500/20 hover:text-purple-500 transition-colors">
+                        <i class="fas fa-gift mr-2"></i>兌換
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 交易記錄 -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">交易記錄</h3>
+                <div class="space-y-4">
+                    <div class="glass-effect rounded-xl p-4 flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center text-purple-500">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div>
+                                <div class="font-medium">充值</div>
+                                <div class="text-sm text-gray-400">2023-10-15 14:30</div>
+                            </div>
+                        </div>
+                        <div class="text-green-500">+$100.00</div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-xl p-4 flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center text-purple-500">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div>
+                                <div class="font-medium">遊戲購買 - 魔法世界</div>
+                                <div class="text-sm text-gray-400">2023-10-15 14:35</div>
+                            </div>
+                        </div>
+                        <div class="text-red-500">-$29.99</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 賬戶設置 -->
+        <div id="settings" class="hidden space-y-8">
+            <!-- 基本信息 -->
+            <div class="glass-effect rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-6">基本信息</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">用戶名</label>
+                        <input type="text" class="w-full px-4 py-3 bg-gray-800/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" value="用戶名稱">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">電子郵箱</label>
+                        <input type="email" class="w-full px-4 py-3 bg-gray-800/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" value="user@example.com">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">手機號碼</label>
+                        <input type="tel" class="w-full px-4 py-3 bg-gray-800/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" value="+886 912345678">
+                    </div>
+                    
+                    <button class="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg font-medium hover:opacity-90 transition-opacity">
+                        保存更改
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 安全設置 -->
+            <div class="glass-effect rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-6">安全設置</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between py-3 border-b border-gray-800">
+                        <div>
+                            <div class="font-medium">修改密碼</div>
+                            <div class="text-sm text-gray-400">定期更改密碼以確保賬戶安全</div>
+                        </div>
+                        <button class="px-4 py-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            修改
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center justify-between py-3 border-b border-gray-800">
+                        <div>
+                            <div class="font-medium">兩步驗證</div>
+                            <div class="text-sm text-gray-400">開啟後需要額外驗證碼登入</div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-500"></div>
+                        </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between py-3">
+                        <div>
+                            <div class="font-medium">登入設備管理</div>
+                            <div class="text-sm text-gray-400">查看並管理已登入的設備</div>
+                        </div>
+                        <button class="px-4 py-2 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                            查看
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // 標籤頁切換
+        const tabs = document.querySelectorAll('[data-tab]');
+        const contents = document.querySelectorAll('#orders, #favorites, #wallet, #settings');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 更新標籤樣式
+                tabs.forEach(t => {
+                    t.classList.remove('text-purple-500');
+                    t.classList.add('text-gray-400');
+                    t.querySelector('.tab-indicator').style.transform = 'scaleX(0)';
+                });
+                
+                tab.classList.remove('text-gray-400');
+                tab.classList.add('text-purple-500');
+                tab.querySelector('.tab-indicator').style.transform = 'scaleX(1)';
+                
+                // 顯示對應內容
+                const targetId = tab.dataset.tab;
+                contents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                document.getElementById(targetId).classList.remove('hidden');
+            });
+        });
+        
+        // 輸入框焦點效果
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.classList.add('ring-2', 'ring-purple-500');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.classList.remove('ring-2', 'ring-purple-500');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>購物車 - PlayHub</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Framer Motion -->
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 手機選單樣式 -->
+    <link rel="stylesheet" href="css/mobile-menu.css">
+    
+    <style>
+        @keyframes fadeIn {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .hover-scale {
+            transition: all 0.5s ease-out;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .hover-scale.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-gray-900 to-black text-white min-h-screen">
+    <!-- 導航欄 -->
+    <nav class="fixed w-full z-50 glass-effect">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">X-five</a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#games" class="hover:text-purple-400 transition-colors">遊戲</a>
+                    <a href="index.html#live" class="hover:text-purple-400 transition-colors">直播</a>
+                    <a href="index.html#videos" class="hover:text-purple-400 transition-colors">短視頻</a>
+                    <a href="index.html#shop" class="hover:text-purple-400 transition-colors">商城</a>
+                    <a href="login.html" class="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full hover:opacity-90 transition-opacity">登入</a>
+                </div>
+                
+                <!-- 手機版選單按鈕 -->
+                <div class="md:hidden">
+                    <button class="text-2xl" id="mobileMenuButton">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 手機端選單 (全頁式) -->
+    <div id="mobileMenu" class="fixed inset-0 bg-gray-900 z-50 hidden">
+        <div class="h-full w-full transform transition-transform duration-300 translate-y-full">
+            <div class="p-6 h-full flex flex-col">
+                <div class="flex justify-between items-center mb-12">
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">PlayHub</a>
+                    <button class="text-2xl" id="closeMenuButton">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <nav class="flex-1 flex flex-col justify-center space-y-8 text-center text-xl">
+                    <a href="index.html#games" class="block hover:text-purple-400 transition-colors">遊戲</a>
+                    <a href="index.html#live" class="block hover:text-purple-400 transition-colors">直播</a>
+                    <a href="index.html#videos" class="block hover:text-purple-400 transition-colors">短視頻</a>
+                    <a href="index.html#shop" class="block hover:text-purple-400 transition-colors">商城</a>
+                    <a href="login.html" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full hover:opacity-90 transition-opacity text-base">登入</a>
+                </nav>
+                <div class="mt-auto pb-8 text-center">
+                    <div class="flex justify-center space-x-6 text-2xl mb-4">
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <p class="text-sm text-gray-400">&copy; 2024 PlayHub. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 購物車內容 -->
+    <div class="container mx-auto px-6 pt-24 pb-12">
+        <h1 class="text-3xl font-bold mb-8">購物車</h1>
+        
+        <!-- 購物車項目列表 -->
+        <div class="space-y-4">
+            <!-- 購物車項目 1 -->
+            <div class="glass-effect rounded-lg p-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://picsum.photos/80" alt="商品圖片" class="w-20 h-20 rounded-lg object-cover">
+                        <div>
+                            <h3 class="font-bold">限量版遊戲手柄</h3>
+                            <p class="text-sm text-gray-400">專業級遊戲體驗，限量發售</p>
+                            <p class="text-purple-500 mt-1">¥ 599</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <button class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700">-</button>
+                            <input type="number" value="1" class="w-12 text-center bg-transparent border-b border-gray-600">
+                            <button class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700">+</button>
+                        </div>
+                        <button class="text-red-500 hover:text-red-400">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 購物車項目 2 -->
+            <div class="glass-effect rounded-lg p-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://picsum.photos/81" alt="商品圖片" class="w-20 h-20 rounded-lg object-cover">
+                        <div>
+                            <h3 class="font-bold">專業電競耳機</h3>
+                            <p class="text-sm text-gray-400">7.1環繞音效，極致遊戲體驗</p>
+                            <p class="text-purple-500 mt-1">¥ 899</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <button class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700">-</button>
+                            <input type="number" value="1" class="w-12 text-center bg-transparent border-b border-gray-600">
+                            <button class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700">+</button>
+                        </div>
+                        <button class="text-red-500 hover:text-red-400">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 購物車摘要 -->
+        <div class="mt-8">
+            <div class="glass-effect rounded-lg p-6">
+                <h2 class="text-xl font-bold mb-4">訂單摘要</h2>
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <span>商品小計</span>
+                        <span>¥ 1,498</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>運費</span>
+                        <span>¥ 0</span>
+                    </div>
+                    <div class="border-t border-gray-700 my-4"></div>
+                    <div class="flex justify-between font-bold">
+                        <span>總計</span>
+                        <span class="text-purple-500">¥ 1,498</span>
+                    </div>
+                </div>
+                <button class="w-full mt-6 bg-gradient-to-r from-purple-500 to-pink-500 py-3 rounded-lg font-medium hover:opacity-90 transition-opacity">
+                    前往結帳
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 頁腳 -->
+    <footer class="bg-gray-900 py-12 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">關於我們</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">公司介紹</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">加入我們</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">聯繫方式</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">用戶服務</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">會員中心</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">購物指南</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">常見問題</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">商務合作</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">商家入駐</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">廣告服務</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">策略合作</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">關注我們</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors text-2xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors text-2xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors text-2xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 PlayHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 手機選單 JavaScript -->
+    <script src="js/mobile-menu.js"></script>
+
+    <script>
+        // 數量調整功能
+        document.querySelectorAll('.flex items-center space-x-2').forEach(container => {
+            const minusBtn = container.querySelector('button:first-child');
+            const plusBtn = container.querySelector('button:last-child');
+            const input = container.querySelector('input');
+
+            minusBtn.addEventListener('click', () => {
+                let value = parseInt(input.value);
+                if (value > 1) {
+                    input.value = value - 1;
+                }
+            });
+
+            plusBtn.addEventListener('click', () => {
+                let value = parseInt(input.value);
+                input.value = value + 1;
+            });
+
+            input.addEventListener('change', () => {
+                let value = parseInt(input.value);
+                if (value < 1) {
+                    input.value = 1;
+                }
+            });
+        });
+
+        // 刪除商品功能
+        document.querySelectorAll('.text-red-500').forEach(button => {
+            button.addEventListener('click', function() {
+                const item = this.closest('.glass-effect');
+                item.remove();
+                // 這裡可以添加更新總價的邏輯
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入 - X-five</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Framer Motion -->
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-gray-900 to-black text-white min-h-screen flex items-center justify-center pt-20">
+    <!-- 導航欄 -->
+    <nav class="fixed w-full z-30 glass-effect top-0">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">X-five</a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#games" class="hover:text-purple-400 transition-colors">遊戲</a>
+                    <a href="index.html#live" class="hover:text-purple-400 transition-colors">直播</a>
+                    <a href="index.html#videos" class="hover:text-purple-400 transition-colors">短視頻</a>
+                    <a href="shop.html" class="hover:text-purple-400 transition-colors">商城</a>
+                    <a href="login.html" class="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full hover:opacity-90 transition-opacity">登入</a>
+                </div>
+                
+                <div class="md:hidden">
+                    <button class="text-2xl" id="mobileMenuButton">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 手機端選單 (全頁式) -->
+    <div id="mobileMenu" class="fixed inset-0 bg-black z-50 hidden">
+        <div class="h-full w-full transform transition-transform duration-300 translate-y-full bg-gray-900">
+            <div class="p-6 h-full flex flex-col">
+                <div class="flex justify-between items-center mb-12">
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">X-five</a>
+                    <button class="text-2xl" id="closeMenuButton">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <nav class="flex-1 flex flex-col justify-center space-y-8 text-center text-xl">
+                    <a href="index.html#games" class="block hover:text-purple-400 transition-colors">遊戲</a>
+                    <a href="index.html#live" class="block hover:text-purple-400 transition-colors">直播</a>
+                    <a href="index.html#videos" class="block hover:text-purple-400 transition-colors">短視頻</a>
+                    <a href="shop.html" class="block hover:text-purple-400 transition-colors">商城</a>
+                    <a href="login.html" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full hover:opacity-90 transition-opacity text-base">登入</a>
+                </nav>
+                <div class="mt-auto pb-8 text-center">
+                    <div class="flex justify-center space-x-6 text-2xl mb-4">
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <p class="text-sm text-gray-400">&copy; 2024 X-five. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 返回首頁按鈕 -->
+    <div class="fixed top-4 left-4">
+        <a href="index.html" class="inline-flex items-center text-gray-400 hover:text-white transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i>
+            返回首頁
+        </a>
+    </div>
+
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- 左側信息 -->
+            <div class="hidden md:flex flex-col justify-center space-y-6 p-8">
+                <div class="animate-float">
+                    <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">歡迎回到 X-five</h1>
+                    <p class="text-gray-400 text-lg">您的專屬娛樂綜合平台</p>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-purple-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">安全可靠</h3>
+                            <p class="text-gray-400">全方位的賬戶安全保護</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+                            <i class="fas fa-bolt text-purple-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">快速便捷</h3>
+                            <p class="text-gray-400">多種登入方式供您選擇</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+                            <i class="fas fa-gift text-purple-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">專屬福利</h3>
+                            <p class="text-gray-400">會員特權與豐富獎勵</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右側登入表單 -->
+            <div class="glass-effect rounded-2xl p-8 md:p-12">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold">登入賬戶</h2>
+                    <p class="text-gray-400 mt-2">享受更多精彩內容</p>
+                </div>
+                
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">賬號</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <input type="text" class="w-full pl-10 pr-4 py-3 bg-gray-800/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="請輸入手機號或郵箱">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">密碼</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input type="password" class="w-full pl-10 pr-4 py-3 bg-gray-800/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="請輸入密碼">
+                            <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="w-4 h-4 rounded bg-gray-800/50 border-0 focus:ring-2 focus:ring-purple-500 text-purple-500">
+                            <span class="ml-2 text-sm text-gray-400">記住我</span>
+                        </label>
+                        <a href="#" class="text-sm text-purple-500 hover:text-purple-400">忘記密碼？</a>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 py-3 rounded-lg font-medium hover:opacity-90 transition-opacity">登入</button>
+                    
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-700"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-[#111827] text-gray-400">或使用以下方式登入</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-4">
+                        <button type="button" class="flex items-center justify-center p-3 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors">
+                            <i class="fab fa-google text-xl"></i>
+                        </button>
+                        <button type="button" class="flex items-center justify-center p-3 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </button>
+                        <button type="button" class="flex items-center justify-center p-3 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </button>
+                    </div>
+                </form>
+                
+                <p class="text-center mt-8 text-gray-400">
+                    還沒有賬戶？
+                    <a href="#" class="text-purple-500 hover:text-purple-400">立即註冊</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 密碼顯示切換
+        document.querySelector('.fa-eye').parentElement.addEventListener('click', function() {
+            const passwordInput = this.parentElement.querySelector('input');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+
+        // 表單提交處理
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // 這裡添加登入邏輯
+        });
+
+        // 輸入框焦點效果
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('ring-2', 'ring-purple-500');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('ring-2', 'ring-purple-500');
+            });
+        });
+
+        // 手機端選單功能
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMenuButton = document.getElementById('closeMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuContent = mobileMenu.querySelector('.transform');
+
+        function openMobileMenu() {
+            document.body.style.overflow = 'hidden'; // 防止背景滾動
+            mobileMenu.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                mobileMenuContent.classList.remove('translate-y-full');
+            });
+        }
+
+        function closeMobileMenu() {
+            mobileMenuContent.classList.add('translate-y-full');
+            setTimeout(() => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = ''; // 恢復背景滾動
+            }, 300);
+        }
+
+        mobileMenuButton.addEventListener('click', openMobileMenu);
+        closeMenuButton.addEventListener('click', closeMobileMenu);
+
+        // 點擊選單項目時也關閉選單
+        const menuLinks = mobileMenu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+    </script>
+</body>
+</html>

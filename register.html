@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-five - 註冊</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Framer Motion -->
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+        
+        .step-indicator {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-gray-900 to-black text-white min-h-screen flex items-center justify-center py-12">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- 頂部進度條 -->
+            <div class="mb-8">
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium text-purple-500">註冊進度</span>
+                    <span class="text-sm font-medium text-purple-500">步驟 <span id="currentStep">1</span>/3</span>
+                </div>
+                <div class="h-2 bg-gray-800 rounded-full">
+                    <div class="progress-bar h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style="width: 33%"></div>
+                </div>
+            </div>
+            
+            <!-- 註冊表單 -->
+            <div class="glass-effect rounded-2xl p-8 md:p-12">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold">創建賬戶</h2>
+                    <p class="text-gray-400 mt-2">加入 X-five，開啟您的娛樂之旅</p>
+                </div>
+                
+                <form id="registrationForm" class="space-y-6">
+                    <!-- 步驟 1：基本信息 -->
+                    <div id="step1" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">手機號碼</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </span>
+                                <input type="tel" class="w-full pl-10 pr-4 py-3 bg-gray-800/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="請輸入手機號碼">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">驗證碼</label>
+                            <div class="flex space-x-4">
+                                <div class="relative flex-1">
+                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                    <input type="text" class="w-full pl-10 pr-4 py-3 bg-gray-800/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="請輸入驗證碼">
+                                </div>
+                                <button type="button" class="px-6 py-3 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">獲取驗證碼</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 步驟 2：賬戶設置 -->
+                    <div id="step2" class="space-y-6 hidden">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">用戶名</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="text" class="w-full pl-10 pr-4 py-3 bg-gray-800/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="請設置用戶名">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">密碼</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" class="w-full pl-10 pr-4 py-3 bg-gray-800/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="請設置密碼">
+                                <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-400">密碼必須包含大小寫字母、數字和特殊符號</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">確認密碼</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" class="w-full pl-10 pr-4 py-3 bg-gray-800/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="請再次輸入密碼">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 步驟 3：個人信息 -->
+                    <div id="step3" class="space-y-6 hidden">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">頭像</label>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-20 h-20 rounded-full bg-gray-800/50 flex items-center justify-center">
+                                    <i class="fas fa-user text-3xl text-gray-400"></i>
+                                </div>
+                                <button type="button" class="px-6 py-3 bg-purple-500/20 text-purple-500 rounded-lg hover:bg-purple-500/30 transition-colors">
+                                    <i class="fas fa-upload mr-2"></i>上傳頭像
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">性別</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <button type="button" class="p-3 bg-gray-800/50 rounded-lg hover:bg-purple-500/20 hover:text-purple-500 transition-colors">
+                                    <i class="fas fa-mars mr-2"></i>男
+                                </button>
+                                <button type="button" class="p-3 bg-gray-800/50 rounded-lg hover:bg-purple-500/20 hover:text-purple-500 transition-colors">
+                                    <i class="fas fa-venus mr-2"></i>女
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">生日</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-calendar"></i>
+                                </span>
+                                <input type="date" class="w-full pl-10 pr-4 py-3 bg-gray-800/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 導航按鈕 -->
+                    <div class="flex space-x-4">
+                        <button type="button" id="prevBtn" class="flex-1 py-3 bg-gray-800/50 rounded-lg font-medium hover:bg-gray-800 transition-colors hidden">上一步</button>
+                        <button type="button" id="nextBtn" class="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 py-3 rounded-lg font-medium hover:opacity-90 transition-opacity">下一步</button>
+                    </div>
+                </form>
+                
+                <p class="text-center mt-8 text-gray-400">
+                    已有賬戶？
+                    <a href="login.html" class="text-purple-500 hover:text-purple-400">立即登入</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 3;
+        
+        // 更新進度條和步驟顯示
+        function updateProgress() {
+            document.querySelector('.progress-bar').style.width = `${(currentStep / totalSteps) * 100}%`;
+            document.getElementById('currentStep').textContent = currentStep;
+            
+            // 顯示/隱藏相應步驟
+            for (let i = 1; i <= totalSteps; i++) {
+                const step = document.getElementById(`step${i}`);
+                if (i === currentStep) {
+                    step.classList.remove('hidden');
+                } else {
+                    step.classList.add('hidden');
+                }
+            }
+            
+            // 更新按鈕狀態
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.classList.toggle('hidden', currentStep === 1);
+            nextBtn.textContent = currentStep === totalSteps ? '完成註冊' : '下一步';
+        }
+        
+        // 按鈕事件監聽
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateProgress();
+            }
+        });
+        
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateProgress();
+            } else {
+                // 提交註冊表單
+                document.getElementById('registrationForm').submit();
+            }
+        });
+        
+        // 密碼顯示切換
+        document.querySelectorAll('.fa-eye').forEach(eye => {
+            eye.parentElement.addEventListener('click', function() {
+                const passwordInput = this.parentElement.querySelector('input');
+                const icon = this.querySelector('i');
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        });
+        
+        // 輸入框焦點效果
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('ring-2', 'ring-purple-500');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('ring-2', 'ring-purple-500');
+            });
+        });
+        
+        // 性別選擇效果
+        const genderButtons = document.querySelectorAll('[type="button"]');
+        genderButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                genderButtons.forEach(btn => {
+                    btn.classList.remove('bg-purple-500/20', 'text-purple-500');
+                    btn.classList.add('bg-gray-800/50');
+                });
+                this.classList.remove('bg-gray-800/50');
+                this.classList.add('bg-purple-500/20', 'text-purple-500');
+            });
+        });
+    </script>
+</body>
+</html>

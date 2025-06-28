@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>農場物語直播間 - X-five</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .chat-messages {
+            height: calc(100vh - 240px);
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .gift-animation {
+            animation: slideUp 1s ease-out forwards;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- 導航欄 -->
+    <nav class="fixed w-full z-30 glass-effect">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">X-five</a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#games" class="hover:text-purple-400 transition-colors">遊戲</a>
+                    <a href="index.html#live" class="hover:text-purple-400 transition-colors">直播</a>
+                    <a href="index.html#videos" class="hover:text-purple-400 transition-colors">短視頻</a>
+                    <a href="index.html#shop" class="hover:text-purple-400 transition-colors">商城</a>
+                    <button class="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full hover:opacity-90 transition-opacity">登入</button>
+                </div>
+                
+                <div class="md:hidden">
+                    <button class="text-2xl" id="mobileMenuButton"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 手機端選單 (全頁式) -->
+    <div id="mobileMenu" class="fixed inset-0 bg-gray-900 z-50 hidden">
+        <div class="h-full w-full transform transition-transform duration-300 translate-y-full">
+            <div class="p-6 h-full flex flex-col">
+                <div class="flex justify-between items-center mb-12">
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">X-five</a>
+                    <button class="text-2xl" id="closeMenuButton">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <nav class="flex-1 flex flex-col justify-center space-y-8 text-center text-xl">
+                    <a href="index.html#games" class="block hover:text-purple-400 transition-colors">遊戲</a>
+                    <a href="index.html#live" class="block hover:text-purple-400 transition-colors">直播</a>
+                    <a href="index.html#videos" class="block hover:text-purple-400 transition-colors">短視頻</a>
+                    <a href="index.html#shop" class="block hover:text-purple-400 transition-colors">商城</a>
+                    <a href="login.html" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full hover:opacity-90 transition-opacity text-base">登入</a>
+                </nav>
+                <div class="mt-auto pb-8 text-center">
+                    <div class="flex justify-center space-x-6 text-2xl mb-4">
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <p class="text-sm text-gray-400">&copy; 2024 X-five. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex h-screen pt-16">
+        <!-- 左側直播畫面 -->
+        <div class="flex-1 flex flex-col">
+            <!-- 直播視頻區域 -->
+            <div class="relative flex-1 bg-black">
+                <video class="w-full h-full object-contain" poster="https://picsum.photos/1920/1080" playsinline>
+                    <source src="#" type="video/mp4">
+                </video>
+                
+                <!-- 直播信息浮層 -->
+                <div class="absolute top-0 left-0 right-0 p-4 flex items-center justify-between glass-effect">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <img src="https://picsum.photos/40" alt="主播頭像" class="w-10 h-10 rounded-full">
+                            <div>
+                                <div class="font-bold">農場物語</div>
+                                <div class="text-sm text-gray-400">ID: 333333</div>
+                            </div>
+                        </div>
+                        <button class="px-4 py-1 bg-pink-500 rounded-full text-sm font-medium hover:bg-pink-600 transition-colors">
+                            <i class="fas fa-heart mr-1"></i>關注
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-eye text-gray-400"></i>
+                            <span>1.3萬</span>
+                        </div>
+                        <button class="p-2 hover:bg-gray-800/50 rounded-full">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 禮物動畫區域 -->
+                <div class="absolute bottom-20 left-4 right-4 pointer-events-none">
+                    <div class="gift-animation glass-effect rounded-lg p-3 inline-flex items-center space-x-2">
+                        <img src="https://picsum.photos/32" alt="用戶頭像" class="w-8 h-8 rounded-full">
+                        <span class="font-medium">農場迷</span>
+                        <span>贈送</span>
+                        <img src="https://picsum.photos/32" alt="禮物圖標" class="w-8 h-8">
+                        <span class="text-yellow-500">×55</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 底部互動欄 -->
+            <div class="glass-effect p-4">
+                <div class="flex items-center space-x-4">
+                    <button class="p-3 bg-gray-800/50 rounded-full hover:bg-gray-800 transition-colors">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <button class="flex-1 px-4 py-2 bg-gray-800/50 rounded-full text-left text-gray-400">
+                        說點什麼...
+                    </button>
+                    <button class="p-3 bg-gray-800/50 rounded-full hover:bg-gray-800 transition-colors">
+                        <i class="fas fa-gift text-pink-500"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 右側聊天區域 -->
+        <div class="w-96 flex flex-col glass-effect">
+            <!-- 標籤頁 -->
+            <div class="flex border-b border-gray-800">
+                <button class="flex-1 py-4 text-center text-purple-500 border-b-2 border-purple-500">聊天</button>
+                <button class="flex-1 py-4 text-center text-gray-400 hover:text-gray-300">排行榜</button>
+                <button class="flex-1 py-4 text-center text-gray-400 hover:text-gray-300">主播</button>
+            </div>
+            
+            <!-- 聊天消息區域 -->
+            <div class="flex-1 overflow-y-auto scrollbar-hide p-4 space-y-4">
+                <!-- 系統消息 -->
+                <div class="text-center">
+                    <span class="px-2 py-1 bg-gray-800/50 rounded-full text-sm text-gray-400">歡迎來到農場物語的直播間</span>
+                </div>
+                
+                <!-- 聊天訊息 -->
+                <div class="flex items-start space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-green-500 flex-shrink-0"></div>
+                    <div>
+                        <p class="text-sm text-green-400">農場迷A</p>
+                        <p class="text-sm">這個農場好漂亮！</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-blue-500 flex-shrink-0"></div>
+                    <div>
+                        <p class="text-sm text-blue-400">農場迷B</p>
+                        <p class="text-sm">主播的種植技巧真是太厲害了！</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 禮物面板 -->
+            <div class="p-4 border-t border-gray-800 hidden">
+                <div class="grid grid-cols-4 gap-4">
+                    <button class="text-center p-2 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors">
+                        <img src="https://picsum.photos/40" alt="禮物圖標" class="w-10 h-10 mx-auto mb-1">
+                        <div class="text-sm">愛心</div>
+                        <div class="text-xs text-yellow-500">$1</div>
+                    </button>
+                    <button class="text-center p-2 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors">
+                        <img src="https://picsum.photos/40" alt="禮物圖標" class="w-10 h-10 mx-auto mb-1">
+                        <div class="text-sm">玫瑰</div>
+                        <div class="text-xs text-yellow-500">$10</div>
+                    </button>
+                    <button class="text-center p-2 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors">
+                        <img src="https://picsum.photos/40" alt="禮物圖標" class="w-10 h-10 mx-auto mb-1">
+                        <div class="text-sm">皇冠</div>
+                        <div class="text-xs text-yellow-500">$100</div>
+                    </button>
+                    <button class="text-center p-2 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors">
+                        <img src="https://picsum.photos/40" alt="禮物圖標" class="w-10 h-10 mx-auto mb-1">
+                        <div class="text-sm">火箭</div>
+                        <div class="text-xs text-yellow-500">$1000</div>
+                    </button>
+                </div>
+                <div class="flex items-center justify-between mt-4">
+                    <div class="text-sm text-gray-400">
+                        餘額: <span class="text-yellow-500">$1,280.50</span>
+                    </div>
+                    <button class="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg font-medium hover:opacity-90 transition-opacity">
+                        贈送
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 相關推薦 -->
+    <div class="container mx-auto px-6 py-12">
+        <h2 class="text-2xl font-bold mb-6">推薦直播</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- 推薦直播卡片 1 -->
+            <a href="live-room01.html" class="block">
+                <div class="glass-effect rounded-xl overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-800 relative">
+                        <div class="absolute top-2 left-2 bg-red-500 px-2 py-1 rounded-full text-sm">LIVE</div>
+                        <img src="https://picsum.photos/400/225" alt="推薦直播" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 rounded-full bg-purple-500 mr-2"></div>
+                            <h3 class="font-bold">小美</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm">2.8萬 觀看</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 推薦直播卡片 2 -->
+            <a href="live-room02.html" class="block">
+                <div class="glass-effect rounded-xl overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-800 relative">
+                        <div class="absolute top-2 left-2 bg-red-500 px-2 py-1 rounded-full text-sm">LIVE</div>
+                        <img src="https://picsum.photos/400/225" alt="推薦直播" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-500 mr-2"></div>
+                            <h3 class="font-bold">遊戲達人</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm">1.5萬 觀看</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 推薦直播卡片 3 -->
+            <a href="live-room03.html" class="block">
+                <div class="glass-effect rounded-xl overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-800 relative">
+                        <div class="absolute top-2 left-2 bg-red-500 px-2 py-1 rounded-full text-sm">LIVE</div>
+                        <img src="https://picsum.photos/400/225" alt="推薦直播" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 rounded-full bg-green-500 mr-2"></div>
+                            <h3 class="font-bold">星際玩家</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm">3.2萬 觀看</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 推薦直播卡片 4 -->
+            <a href="live-room04.html" class="block">
+                <div class="glass-effect rounded-xl overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-800 relative">
+                        <div class="absolute top-2 left-2 bg-red-500 px-2 py-1 rounded-full text-sm">LIVE</div>
+                        <img src="https://picsum.photos/400/225" alt="推薦直播" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 rounded-full bg-yellow-500 mr-2"></div>
+                            <h3 class="font-bold">競技大師</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm">1.8萬 觀看</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 推薦直播卡片 5 -->
+            <a href="live-room05.html" class="block">
+                <div class="glass-effect rounded-xl overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-800 relative">
+                        <div class="absolute top-2 left-2 bg-red-500 px-2 py-1 rounded-full text-sm">LIVE</div>
+                        <img src="https://picsum.photos/400/225" alt="推薦直播" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 rounded-full bg-pink-500 mr-2"></div>
+                            <h3 class="font-bold">魔法少女</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm">2.1萬 觀看</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 推薦直播卡片 7 -->
+            <a href="live-room07.html" class="block">
+                <div class="glass-effect rounded-xl overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-800 relative">
+                        <div class="absolute top-2 left-2 bg-red-500 px-2 py-1 rounded-full text-sm">LIVE</div>
+                        <img src="https://picsum.photos/400/225" alt="推薦直播" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 rounded-full bg-indigo-500 mr-2"></div>
+                            <h3 class="font-bold">城市規劃師</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm">1.7萬 觀看</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 推薦直播卡片 8 -->
+            <a href="live-room08.html" class="block">
+                <div class="glass-effect rounded-xl overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-800 relative">
+                        <div class="absolute top-2 left-2 bg-red-500 px-2 py-1 rounded-full text-sm">LIVE</div>
+                        <img src="https://picsum.photos/400/225" alt="推薦直播" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 rounded-full bg-orange-500 mr-2"></div>
+                            <h3 class="font-bold">武俠大師</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm">2.4萬 觀看</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 禮物按鈕點擊事件
+        const giftButton = document.querySelector('.fa-gift').parentElement;
+        const giftPanel = document.querySelector('.border-t');
+        
+        giftButton.addEventListener('click', () => {
+            giftPanel.classList.toggle('hidden');
+        });
+        
+        // 關注按鈕點擊事件
+        const followButton = document.querySelector('.bg-pink-500');
+        followButton.addEventListener('click', function() {
+            this.classList.toggle('bg-gray-600');
+            this.classList.toggle('bg-pink-500');
+            this.innerHTML = this.classList.contains('bg-gray-600') ? 
+                '<i class="fas fa-check mr-1"></i>已關注' : 
+                '<i class="fas fa-heart mr-1"></i>關注';
+        });
+        
+        // 全屏按鈕點擊事件
+        const fullscreenButton = document.querySelector('.fa-expand').parentElement;
+        const videoContainer = document.querySelector('.relative');
+        
+        fullscreenButton.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                videoContainer.requestFullscreen();
+                fullscreenButton.querySelector('i').classList.replace('fa-expand', 'fa-compress');
+            } else {
+                document.exitFullscreen();
+                fullscreenButton.querySelector('i').classList.replace('fa-compress', 'fa-expand');
+            }
+        });
+        
+        // 模擬新消息
+        setInterval(() => {
+            const messages = document.querySelector('.scrollbar-hide');
+            const newMessage = document.createElement('div');
+            newMessage.className = 'flex items-start space-x-2';
+            newMessage.innerHTML = `
+                <img src="https://picsum.photos/32" alt="用戶頭像" class="w-8 h-8 rounded-full">
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm font-medium">用戶${Math.floor(Math.random() * 1000)}</span>
+                    </div>
+                    <p class="mt-1 text-gray-300">農場物語好有趣！</p>
+                </div>
+            `;
+            messages.appendChild(newMessage);
+            messages.scrollTop = messages.scrollHeight;
+        }, 5000);
+        
+        // 模擬禮物動畫
+        setInterval(() => {
+            const giftContainer = document.querySelector('.gift-animation');
+            giftContainer.style.opacity = '0';
+            setTimeout(() => {
+                giftContainer.style.opacity = '1';
+            }, 100);
+        }, 8000);
+
+        // 手機端選單功能
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMenuButton = document.getElementById('closeMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuContent = mobileMenu.querySelector('.transform');
+
+        function openMobileMenu() {
+            document.body.style.overflow = 'hidden'; // 防止背景滾動
+            mobileMenu.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                mobileMenuContent.classList.remove('translate-y-full');
+            });
+        }
+
+        function closeMobileMenu() {
+            mobileMenuContent.classList.add('translate-y-full');
+            setTimeout(() => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = ''; // 恢復背景滾動
+            }, 300);
+        }
+
+        mobileMenuButton.addEventListener('click', openMobileMenu);
+        closeMenuButton.addEventListener('click', closeMobileMenu);
+
+        // 點擊選單項目時也關閉選單
+        const menuLinks = mobileMenu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+    </script>
+</body>
+</html> 
