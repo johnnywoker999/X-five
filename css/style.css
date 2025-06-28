@@ -1,0 +1,147 @@
+/* 基本重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: white;
+}
+
+/* 手機選單按鈕 */
+.menu-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+    display: none;
+}
+
+.menu-button span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+/* 手機選單開啟時的按鈕樣式 */
+.menu-button.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.menu-button.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-button.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* 選單覆蓋層 */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Logo 樣式 */
+.logo {
+    font-size: 32px;
+    background: linear-gradient(45deg, #9b4deb, #e065e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 40px;
+}
+
+/* 選單項目 */
+.menu-item {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    margin: 15px 0;
+    padding: 10px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: 0.3s;
+}
+
+.menu-overlay.active .menu-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.menu-item:hover {
+    color: #e065e0;
+}
+
+/* 桌面版選單 */
+.desktop-menu {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.desktop-menu a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+}
+
+.desktop-menu a:hover {
+    color: #e065e0;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .desktop-menu {
+        display: none;
+    }
+    
+    .menu-button {
+        display: block;
+    }
+    
+    .menu-item {
+        transition-delay: 0.1s;
+    }
+    
+    .menu-item:nth-child(2) {
+        transition-delay: 0.2s;
+    }
+    
+    .menu-item:nth-child(3) {
+        transition-delay: 0.3s;
+    }
+    
+    .menu-item:nth-child(4) {
+        transition-delay: 0.4s;
+    }
+} 

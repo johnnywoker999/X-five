@@ -1,0 +1,33 @@
+/* 手機選單樣式 */
+#mobileMenu {
+    transition: visibility 0.3s;
+    visibility: hidden;
+}
+
+#mobileMenu.visible {
+    visibility: visible;
+}
+
+#mobileMenu .transform {
+    transition: transform 0.3s ease-in-out;
+}
+
+#mobileMenu:not(.hidden) {
+    visibility: visible;
+}
+
+@media (max-width: 768px) {
+    .desktop-menu {
+        display: none;
+    }
+    
+    .mobile-only {
+        display: block;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none;
+    }
+} 
